@@ -32,7 +32,7 @@ public class CSVType implements DocumentType {
      */
     public CSVType() {}
 
-    public String getName() { return "Text file"; }
+    public String getName() { return "CSV File"; }
     /**
      * Create and initialize a new representation for a text document.
      * @return the new document contents.
@@ -112,10 +112,10 @@ public class CSVType implements DocumentType {
     */
 
     private static String[][] actionPairs = {
-	{ "Edit/Copy", DefaultEditorKit.copyAction} ,
-	{ "Edit/Cut", DefaultEditorKit.cutAction},
-	// { "", DefaultEditorKit.cutAction}, // test error check
-	{ "Edit/Paste", DefaultEditorKit.pasteAction}
+//	{ "Edit/Copy", DefaultEditorKit.copyAction} ,
+//	{ "Edit/Cut", DefaultEditorKit.cutAction},
+//	// { "", DefaultEditorKit.cutAction}, // test error check
+//	{ "Edit/Paste", DefaultEditorKit.pasteAction}
     };
 
 
@@ -159,10 +159,10 @@ public class CSVType implements DocumentType {
 	if (menu==null) {
 	    menu = new MenuDescriptor();
 	    try {
-		menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
-		menu.addElement(new MenuElement("Edit/Delete", new DeleteAction()));
-		menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
-		menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
+//		menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
+//		menu.addElement(new MenuElement("Edit/Delete", new DeleteAction()));
+//		menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
+//		menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
 	    } catch (Exception e) {
 		Log.internalError("Menu element error "+e.getLocalizedMessage());
 	    }
@@ -188,6 +188,6 @@ public class CSVType implements DocumentType {
     /**
      * The expected extensions for files the application can edit.
      */
-    private static String[] extensions = { "txt", "html" };
+    private static String[] extensions = { "cs" };
 
 } // end class CSVType
