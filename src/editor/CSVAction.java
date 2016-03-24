@@ -18,21 +18,21 @@ import ca.queensu.cs.dal.flex.log.Log;
  * Copyright 2010-2011 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public abstract class TextAction extends DefaultAction {
+public abstract class CSVAction extends DefaultAction {
     /**
      * Constructs a text manipulation action
      */
-    private TextAction() {
+    private CSVAction() {
 	super("Text");
-    } // end constructor TextAction
+    } // end constructor CSVAction
 
     /**
      * Constructs a text manipulation action
      * @param name Name of the action.
      */
-    protected TextAction(String name) {
+    protected CSVAction(String name) {
 	super(name);
-    } // end constructor TextAction
+    } // end constructor CSVAction
     
     /**
      * Perform some appropriate change on a selected region of text;
@@ -44,7 +44,7 @@ public abstract class TextAction extends DefaultAction {
      * @param start Index of the first character to change.
      * @param end Index one beyond the last character to change.
      */
-    protected abstract void changeText(TextContents con, int start, int end);
+    protected abstract void changeText(CSVContents con, int start, int end);
 
     /**
      * Perform the appropriate action (defined by {@link #changeText}) on the
@@ -56,8 +56,8 @@ public abstract class TextAction extends DefaultAction {
 	    CommonWindow win = app.getActiveWindow();
 	    JTextArea area = (JTextArea) ((JScrollPane) win.getContentPane()).getViewport().getView();
 	    // if (firstArea==null) setArea(area);
-	    TextDocument doc = (TextDocument) app.getActiveDocument();
-	    TextContents con = (TextContents) doc.getContents();
+	    CSVDocument doc = (CSVDocument) app.getActiveDocument();
+	    CSVContents con = (CSVContents) doc.getContents();
 	    int start = area.getSelectionStart();
 	    int end = area.getSelectionEnd();
 	    changeText(con,start,end);
@@ -70,12 +70,12 @@ public abstract class TextAction extends DefaultAction {
     /*
     private static JTextArea firstArea = null;
     private static void setArea(JTextArea area) {
-	TextType.setActions(area);
+	CSVType.setActions(area);
 	Keymap km = area.getKeymap();
 	if (km==null) {System.out.println("No keymap"); return; }
 	String actionName=DefaultEditorKit.pasteAction;
-	Action ac = TextType.getNamedAction(actionName);
-	TextType.debugAction(actionName, km, ac);
+	Action ac = CSVType.getNamedAction(actionName);
+	CSVType.debugAction(actionName, km, ac);
 	debugStroke("ctrl pressed V",km);
 	debugStroke("ctrl X",km);
 	debugStroke("ctrl pressed C",km);
@@ -100,4 +100,4 @@ public abstract class TextAction extends DefaultAction {
 	} else System.out.println("No ctl-C keystroke");
     } // debugStroke
     */
-} // end class TextAction
+} // end class CSVAction

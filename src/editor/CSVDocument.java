@@ -1,5 +1,4 @@
 // $Id: TextDocument.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
-import java.awt.Container;
 import java.io.*;
 //import java.util.*;
 import javax.swing.JTextArea;
@@ -7,9 +6,7 @@ import javax.swing.JScrollPane;
 // Import only those classes from edfmwk that are essential, for documentation purposes
 import ca.queensu.cs.dal.edfmwk.doc.AbstractDocument;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
-import ca.queensu.cs.dal.edfmwk.doc.DocumentEvent;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
-import ca.queensu.cs.dal.edfmwk.doc.DocumentListener;
 
 /**
  * Implementation of a text document, which is (indirectly) defined in
@@ -18,26 +15,26 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentListener;
  * Copyright 2010 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class TextDocument
+public class CSVDocument
     extends AbstractDocument
     implements javax.swing.event.DocumentListener
 {
     private static int numRows = 20;
     private static int numColumns = 80;
-    private TextContents contents;
+    private CSVContents contents;
 
     /**
      * Constructs a document representation.
      * @param type The type of the document.
      */
-    public TextDocument(DocumentType type) {
+    public CSVDocument(DocumentType type) {
 	super(type);
-	contents = new TextContents();
+	contents = new CSVContents();
 	contents.addDocumentListener(this);
 	JTextArea jta = new JTextArea(numRows, numColumns);
 	jta.setDocument(contents);
 	window = new JScrollPane(jta);
-    } // end TextDocument
+    } // end CSVDocument
 
     // Text document change listeners: all invoke the framework's own document
     // change listeners.
@@ -105,6 +102,6 @@ public class TextDocument
      * Gets the contents of the text document, for those few methods within
      *    this package that need direct access (such as actions).
      */
-    TextContents getContents() { return contents; }
-} // end class TextDocument
+    CSVContents getContents() { return contents; }
+} // end class CSVDocument
 

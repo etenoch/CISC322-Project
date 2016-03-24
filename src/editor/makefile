@@ -1,10 +1,10 @@
-MAIN=TextEditor
+MAIN=CSVEditor
 CLASSPATH=".:./txtlib.jar"
 
 run: compile
 	java -cp ${CLASSPATH} ${MAIN}
-compile: TextEditor.class
-TextEditor.class: TextEditor.java
+compile: CSVEditor.class
+CSVEditor.class: CSVEditor.java
 	javac -cp ${CLASSPATH} ${MAIN}.java
 
 clean:

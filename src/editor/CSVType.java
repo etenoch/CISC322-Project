@@ -5,14 +5,11 @@ import java.util.HashMap;
 import javax.swing.Action;
 import javax.swing.JTextArea;
 import javax.swing.text.JTextComponent;
-import javax.swing.text.Keymap;
 import javax.swing.JScrollPane;
 import javax.swing.text.DefaultEditorKit;
 // import javax.swing.KeyStroke;
-import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
 import ca.queensu.cs.dal.edfmwk.doc.Document;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
-import ca.queensu.cs.dal.edfmwk.doc.DocumentManager;
 import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
 import ca.queensu.cs.dal.data.tree.TreeException;
 import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
@@ -24,12 +21,12 @@ import ca.queensu.cs.dal.flex.log.Log;
  *<p>
  * Copyright 2010-2011 David Alex Lamb.
  */
-public class TextType implements DocumentType {
+public class CSVType implements DocumentType {
     /**
      * Construct a new factory for {@link ca.queensu.cs.dal.txt.TextContents}
      * objects.
      */
-    public TextType() {}
+    public CSVType() {}
 
     public String getName() { return "Text file"; }
     /**
@@ -37,7 +34,7 @@ public class TextType implements DocumentType {
      * @return the new document contents.
      */
     public Document newDocument() {
-	return new TextDocument(this);
+	return new CSVDocument(this);
     }
 
     /**
@@ -189,4 +186,4 @@ public class TextType implements DocumentType {
      */
     private static String[] extensions = { "txt", "html" };
 
-} // end class TextType
+} // end class CSVType

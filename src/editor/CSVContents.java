@@ -11,7 +11,7 @@ import ca.queensu.cs.dal.edfmwk.doc.StringSequenceInputStream;
  * Copyright 2010-2011 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class TextContents
+public class CSVContents
     extends javax.swing.text.PlainDocument
     implements StringSequence
 {
@@ -21,7 +21,7 @@ public class TextContents
     /**
      * Constructs an empty text file contents.
      */
-    public TextContents() {
+    public CSVContents() {
 	super();
 	bufferSize = 100;
 	buffer = new char[bufferSize];
@@ -134,4 +134,4 @@ public class TextContents
 	}
     } // end safelyGetText
 
-} // end TextContents
+} // end CSVContents

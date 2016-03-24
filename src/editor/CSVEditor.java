@@ -1,21 +1,18 @@
 // $Id: TextEditor.java,v 1.2 2012/12/14 20:23:49 dalamb Exp dalamb $
-import javax.swing.JPanel;
-import javax.swing.JMenuBar;
 // Import only those classes from edfmwk that are essential, for documentation purposes
 import ca.queensu.cs.dal.edfmwk.Application;
 import ca.queensu.cs.dal.edfmwk.act.AboutAction;
 import ca.queensu.cs.dal.edfmwk.act.CreditAction;
-import ca.queensu.cs.dal.edfmwk.act.DefaultAction;
-import ca.queensu.cs.dal.edfmwk.act.HelpAction;
+		import ca.queensu.cs.dal.edfmwk.act.HelpAction;
 import ca.queensu.cs.dal.edfmwk.act.NewAction;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentManager;
-import ca.queensu.cs.dal.edfmwk.i18n.Localizers;
-import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
+		import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
 import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
 import ca.queensu.cs.dal.edfmwk.Menus;
 import ca.queensu.cs.dal.flex.Register;
-import ca.queensu.cs.dal.flex.i18n.Localizer;
+import ca.queensu.cs.dal.txt.MainPanel;
+import ca.queensu.cs.dal.txt.TextType;
 
 /**
  * A simple text editor using the document framework.
@@ -24,7 +21,7 @@ import ca.queensu.cs.dal.flex.i18n.Localizer;
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
 
-public class TextEditor extends Application {
+public class CSVEditor extends Application {
     private MenuDescriptor menu;
     /* package */ MainPanel mainPanel;
     private static String title = "Simple Text File Editor";
@@ -62,7 +59,7 @@ public class TextEditor extends Application {
     /*
      * Constructs and initializes the editor.
      */
-    public TextEditor() {
+    public CSVEditor() {
 	super(title);
 	mainPanel = new MainPanel();
 	DocumentType fac = new TextType();
@@ -86,23 +83,23 @@ public class TextEditor extends Application {
 	setup(mainPanel, mainMenu);
 	finishSetup();
 	//System.err.println("Got to end of Text Editor constructor");
-    } // end constructor TextEditor
+    } // end constructor CSVEditor
     
     
     /**
-     * Editor main program.  Constructs an instance of TextEditor and
+     * Editor main program.  Constructs an instance of CSVEditor and
      * waits for user interface events.
      */
     public static void main(String args[]) {
-	new TextEditor();
+	new CSVEditor();
     } // end main
 
     /**
      * Returns the main application, so that other classes can access some
      *   global information.
      */
-    public static TextEditor getApplication() {
-	return (TextEditor) Application.getApplication();
+    public static CSVEditor getApplication() {
+	return (CSVEditor) Application.getApplication();
     }
 
-} // end class TextEditor
+} // end class CSVEditor
