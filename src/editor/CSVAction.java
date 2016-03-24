@@ -1,3 +1,4 @@
+package editor;
 // $Id: TextAction.java,v 1.1 2012/10/24 17:06:40 dalamb Exp $
 import java.awt.event.ActionEvent;
 // import javax.swing.Action;

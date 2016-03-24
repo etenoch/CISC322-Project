@@ -1,4 +1,7 @@
+package editor;
 // $Id: CapitalizeAction.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
+import editor.CSVContents;
+
 import java.util.regex.*;
 // For documentation purposes, import only edfmwk classes actually used.
 

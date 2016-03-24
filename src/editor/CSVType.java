@@ -1,3 +1,4 @@
+package editor;
 // $Id: TextType.java,v 1.3 2012/10/24 17:06:40 dalamb Exp $
 // Import only those classes from edfmwk that are essential, for documentation purposes
 import java.awt.Component;
@@ -14,6 +15,9 @@ import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
 import ca.queensu.cs.dal.data.tree.TreeException;
 import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
 import ca.queensu.cs.dal.flex.log.Log;
+import ca.queensu.cs.dal.txt.DeleteAction;
+import ca.queensu.cs.dal.txt.DownCaseAction;
+import ca.queensu.cs.dal.txt.UpCaseAction;
 
 /**
  * <a href="http://en.wikipedia.org/wiki/Factory_(software_concept)">Factory</a>

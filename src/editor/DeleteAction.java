@@ -1,3 +1,4 @@
+package editor;
 // $Id: DeleteAction.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
 // For documentation purposes, import only those classes from edfmwk that are
 // actually used.

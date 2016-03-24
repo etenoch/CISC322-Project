@@ -1,3 +1,7 @@
+package editor;
+
+import ca.queensu.cs.dal.edfmwk.doc.StringSequence;
+
 // $Id: TextContents.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
 import java.io.*;
 //import java.util.*;

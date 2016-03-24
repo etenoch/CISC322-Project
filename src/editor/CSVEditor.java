@@ -1,3 +1,4 @@
+package editor;
 // $Id: TextEditor.java,v 1.2 2012/12/14 20:23:49 dalamb Exp dalamb $
 // Import only those classes from edfmwk that are essential, for documentation purposes
 import ca.queensu.cs.dal.edfmwk.Application;

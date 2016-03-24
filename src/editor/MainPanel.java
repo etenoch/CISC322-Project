@@ -1,3 +1,4 @@
+package editor;
 // $Id: MainPanel.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
 import java.awt.Color;
 import java.awt.BorderLayout;
