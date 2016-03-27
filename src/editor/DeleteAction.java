@@ -29,10 +29,10 @@ public class DeleteAction extends CSVAction {
 	try {
 	    if (end>start) {
 		// delete selection
-		con.replace(start,end-start,"",null);
+//		con.replace(start,end-start,"",null);
 	    } else {
 		// delete text after caret
-		con.replace(end,1,"",null);
+//		con.replace(end,1,"",null);
 	    }
 	} catch (Exception e) {
 	    //error("Deleting nonexistent character.");

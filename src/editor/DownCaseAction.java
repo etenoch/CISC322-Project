@@ -29,8 +29,8 @@ public class DownCaseAction extends CSVAction {
 	    //System.err.println("Down "+start+":"+end);
 	    int len = end-start;
 	    if (len>0) {
-		String oldText = con.getText(start,len);
-		con.replace(start,len,oldText.toLowerCase(),null);
+		String oldText = con.getValueAt(start,len);
+//		con.replace(start,len,oldText.toLowerCase(),null);
 	    } else {
 		// nothing to do
 	    }

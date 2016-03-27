@@ -1,6 +1,5 @@
 package editor;
 // $Id: CapitalizeAction.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
-import editor.CSVContents;
 
 import java.util.regex.*;
 // For documentation purposes, import only edfmwk classes actually used.
@@ -39,7 +38,7 @@ public class CapitalizeAction extends CSVAction {
 	    //System.err.println("Cap "+start+":"+end);
 	    int len = end-start;
 	    if (len>0) {
-		String oldText = con.getText(start,len);
+		String oldText = con.getValueAt(start,len);
 		StringBuilder newText = new StringBuilder(oldText.length());
 		//System.err.println("old '"+oldText+"'");
 		Matcher matcher = wordPattern.matcher(oldText);
@@ -63,7 +62,7 @@ public class CapitalizeAction extends CSVAction {
 		//System.err.println("tail '"+tmp+"'");
 		newText.append(tmp);
 		// replace old selection contents with new
-		con.replace(start,len,newText.toString(),null);
+//		con.replace(start,len,newText.toString(),null);
 	    } else {
 		// nothing to do
 	    }

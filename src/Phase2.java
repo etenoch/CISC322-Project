@@ -1,6 +1,5 @@
 
 import com.opencsv.CSVReader;
-import editor.CSVTableModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,9 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 
 public class Phase2 {

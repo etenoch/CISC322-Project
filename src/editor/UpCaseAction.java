@@ -29,8 +29,8 @@ public class UpCaseAction extends CSVAction {
 	    //System.err.println("Up "+start+":"+end);
 	    int len = end-start;
 	    if (len>0) {
-		String oldText = con.getText(start,len);
-		con.replace(start,len,oldText.toUpperCase(),null);
+//		String oldText = con.getText(start,len);
+//		con.replace(start,len,oldText.toUpperCase(),null);
 	    } else {
 		// nothing to do
 	    }

@@ -5,10 +5,7 @@ import ca.queensu.cs.dal.edfmwk.doc.AbstractDocument;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 
-import javax.sound.midi.SysexMessage;
 import javax.swing.*;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -23,9 +20,7 @@ import java.io.OutputStream;
  * Copyright 2010 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class CSVDocument
-        extends AbstractDocument
-        implements javax.swing.event.DocumentListener {
+public class CSVDocument extends AbstractDocument implements javax.swing.event.DocumentListener {
     private static int numRows = 20;
     private static int numColumns = 80;
     private CSVContents contents;
@@ -37,8 +32,8 @@ public class CSVDocument
      */
     public CSVDocument(DocumentType type) {
         super(type);
-        contents = new CSVContents();
-        contents.addDocumentListener(this);
+//        contents = new CSVContents();
+//        contents.addDocumentListener(this);
 //        JTextArea jta = new JTextArea(numRows, numColumns);
 //        JTable jta = new JTable(contents.data,contents.header);
 ////        jta.setDocument(contents);
@@ -104,10 +99,11 @@ public class CSVDocument
      *                     closed the stream.
      */
     public void open(InputStream in) throws IOException {
+
+        contents = new CSVContents();
         contents.open(in);
 
-        CSVTableModel ctm = new CSVTableModel(contents.header,contents.data);
-        JTable jta = new JTable(ctm);
+        JTable jta = new JTable(contents);
         window = new JScrollPane(jta);
         setChanged(false);
     } // open

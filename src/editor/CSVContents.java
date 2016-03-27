@@ -1,28 +1,46 @@
 package editor;
 
-import ca.queensu.cs.dal.edfmwk.doc.StringSequence;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVWriter;
 
-// $Id: TextContents.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
-import java.awt.*;
+import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.List;
-//import java.util.*;
-import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
-import ca.queensu.cs.dal.edfmwk.doc.StringSequence;
-import ca.queensu.cs.dal.edfmwk.doc.StringSequenceInputStream;
-import com.opencsv.CSVReader;
-
-import javax.swing.*;
 
 
-public class CSVContents extends javax.swing.text.PlainDocument implements StringSequence {
-    public String[] header;
-    public String[][] data;
+public class CSVContents extends AbstractTableModel {
 
-    public CSVContents() {
-        super();
+    String[] header;
+    String[][] data;
 
-    } // end constructor
+    public CSVContents(){
+
+    }
+
+    public int getColumnCount() {
+        return header.length;
+    }
+
+    public int getRowCount() {
+        return data.length;
+    }
+
+    public String getColumnName(int col) {
+        return header[col];
+    }
+
+    public String getValueAt(int row, int col) {
+        return data[row][col];
+    }
+
+    public void setValueAt(Object value, int row, int col) {
+        System.out.println((String) value);
+        data[row][col] = (String) value;
+    }
+
+    public boolean isCellEditable(int row, int col) {
+        return true;
+    }
 
 
     public void open(InputStream in) throws IOException {
@@ -50,7 +68,13 @@ public class CSVContents extends javax.swing.text.PlainDocument implements Strin
 
 
     public void save(OutputStream out) throws IOException {
+        CSVWriter writer = new CSVWriter(new OutputStreamWriter(out),',', CSVWriter.NO_QUOTE_CHARACTER);
 
+        writer.writeNext(header);
+        for(String[] line : data){
+            writer.writeNext(line);
+        }
+        writer.close();
     } // end save
 
     public InputStream getContentsStream() //throws DocumentException
@@ -59,8 +83,4 @@ public class CSVContents extends javax.swing.text.PlainDocument implements Strin
     } // end getContentStream
 
 
-    public String safelyGetText(int start, int length) {
-        return null;
-    } // end safelyGetText
-
-} // end CSVContents
+}
