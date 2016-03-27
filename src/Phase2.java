@@ -1,5 +1,6 @@
 
 import com.opencsv.CSVReader;
+import editor.CSVTableModel;
 
 import javax.swing.*;
 import java.awt.*;

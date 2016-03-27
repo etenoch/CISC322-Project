@@ -5,7 +5,10 @@ import ca.queensu.cs.dal.edfmwk.doc.AbstractDocument;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 
+import javax.sound.midi.SysexMessage;
 import javax.swing.*;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -100,10 +103,11 @@ public class CSVDocument
      * @throws IOException if any I/O errors occur, in which case it will have
      *                     closed the stream.
      */
-    public void open(InputStream in)
-            throws IOException {
+    public void open(InputStream in) throws IOException {
         contents.open(in);
-        JTable jta = new JTable(contents.data,contents.header);
+
+        CSVTableModel ctm = new CSVTableModel(contents.header,contents.data);
+        JTable jta = new JTable(ctm);
         window = new JScrollPane(jta);
         setChanged(false);
     } // open
