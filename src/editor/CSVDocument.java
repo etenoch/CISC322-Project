@@ -6,6 +6,9 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 
 import javax.swing.*;
+import javax.swing.event.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -20,10 +23,15 @@ import java.io.OutputStream;
  * Copyright 2010 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class CSVDocument extends AbstractDocument implements javax.swing.event.DocumentListener {
+public class CSVDocument extends AbstractDocument implements TableColumnModelListener,MouseListener{
     private static int numRows = 20;
     private static int numColumns = 80;
     private CSVContents contents;
+    private JTable jtable;
+
+    boolean columnDragging = false;
+    boolean columnIndexChanged = false;
+
 
     /**
      * Constructs a document representation.
@@ -32,37 +40,47 @@ public class CSVDocument extends AbstractDocument implements javax.swing.event.D
      */
     public CSVDocument(DocumentType type) {
         super(type);
-//        contents = new CSVContents();
-//        contents.addDocumentListener(this);
-//        JTextArea jta = new JTextArea(numRows, numColumns);
-//        JTable jta = new JTable(contents.data,contents.header);
-////        jta.setDocument(contents);
-//        window = new JScrollPane(jta);
+        jtable = new JTable(contents);
+        window = new JScrollPane(jtable);
+
     } // end CSVDocument
 
-    // Text document change listeners: all invoke the framework's own document
-    // change listeners.
 
-    /**
-     * Gives notification that an attribute or set of attributes changed.
-     */
-    public void changedUpdate(javax.swing.event.DocumentEvent e) {
-        setChanged();
-    } // end changedUpdate
+    @Override
+    public void columnAdded(TableColumnModelEvent e) {}
+    @Override
+    public void columnRemoved(TableColumnModelEvent e) {}
+    @Override
+    public void columnMarginChanged(ChangeEvent e) {}
+    @Override
+    public void columnSelectionChanged(ListSelectionEvent e) {}
 
-    /**
-     * Gives notification that there was an insert into the document.
-     */
-    public void insertUpdate(javax.swing.event.DocumentEvent e) {
-        setChanged();
-    } // end insertUpdate
+    @Override
+    public void columnMoved(TableColumnModelEvent e) {
+        columnDragging = true;
+        if (e.getFromIndex() != e.getToIndex()) {
+            columnIndexChanged = true;
+            // safe to process change event
 
-    /**
-     * Gives notification that a portion of the document has been removed.
-     */
-    public void removeUpdate(javax.swing.event.DocumentEvent e) {
-        setChanged();
-    } // end removeUpdate
+//            System.out.println("Moved from "+e.getFromIndex() +" to "+e.getToIndex());
+            contents.moveColumn(e.getFromIndex(),e.getToIndex());
+        }
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
+    @Override
+    public void mousePressed(MouseEvent e) {}
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        columnDragging = false;
+        columnIndexChanged = false;
+    }
+
+
 
     /**
      * Saves the entire document.  After this operation completes
@@ -99,12 +117,15 @@ public class CSVDocument extends AbstractDocument implements javax.swing.event.D
      *                     closed the stream.
      */
     public void open(InputStream in) throws IOException {
-
         contents = new CSVContents();
         contents.open(in);
+        in.close();
 
-        JTable jta = new JTable(contents);
-        window = new JScrollPane(jta);
+        // populate jtable
+        jtable.setModel(contents);
+        jtable.getColumnModel().addColumnModelListener(this);
+        jtable.getTableHeader().addMouseListener(this);
+
         setChanged(false);
     } // open
 

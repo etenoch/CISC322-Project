@@ -3,6 +3,8 @@ package editor;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.List;
@@ -42,6 +44,13 @@ public class CSVContents extends AbstractTableModel {
         return true;
     }
 
+    public void moveColumn(int columnFrom, int columnTo){
+        swap(header, columnFrom, columnTo);
+        for(String[] line : data){
+            swap(line,columnTo,columnFrom);
+        }
+    }
+
 
     public void open(InputStream in) throws IOException {
         CSVReader reader = new CSVReader(new InputStreamReader(in));
@@ -61,12 +70,6 @@ public class CSVContents extends AbstractTableModel {
 
     } // end method open
 
-    public void write(Writer out) // throws IOException
-    {
-
-    } // end method write
-
-
     public void save(OutputStream out) throws IOException {
         CSVWriter writer = new CSVWriter(new OutputStreamWriter(out),',', CSVWriter.NO_QUOTE_CHARACTER);
 
@@ -81,6 +84,15 @@ public class CSVContents extends AbstractTableModel {
     {
         return null;
     } // end getContentStream
+
+
+    // helper function
+
+    public static void swap(String[] array, int i, int j){
+        String temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 
 
 }
