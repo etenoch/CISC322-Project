@@ -25,7 +25,7 @@ public class DeleteAction extends CSVAction {
      * @param start Index of the first character to change.
      * @param end Index one beyond the last character to change.
      */
-    protected void changeText(CSVContents con, int start, int end) {
+    protected void changeCSV(CSVContents con, int start, int end) {
 	try {
 	    if (end>start) {
 		// delete selection

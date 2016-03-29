@@ -2,8 +2,7 @@ package editor;
 // $Id: TextAction.java,v 1.1 2012/10/24 17:06:40 dalamb Exp $
 import java.awt.event.ActionEvent;
 // import javax.swing.Action;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
+import javax.swing.*;
 // import javax.swing.text.Keymap;
 // import javax.swing.text.DefaultEditorKit;
 // import javax.swing.KeyStroke;
@@ -24,7 +23,7 @@ public abstract class CSVAction extends DefaultAction {
      * Constructs a text manipulation action
      */
     private CSVAction() {
-	super("Text");
+        super("Text");
     } // end constructor CSVAction
 
     /**
@@ -32,9 +31,9 @@ public abstract class CSVAction extends DefaultAction {
      * @param name Name of the action.
      */
     protected CSVAction(String name) {
-	super(name);
+        super(name);
     } // end constructor CSVAction
-    
+
     /**
      * Perform some appropriate change on a selected region of text;
      *    subclasses must implement this method. If
@@ -45,26 +44,27 @@ public abstract class CSVAction extends DefaultAction {
      * @param start Index of the first character to change.
      * @param end Index one beyond the last character to change.
      */
-    protected abstract void changeText(CSVContents con, int start, int end);
+    protected abstract void changeCSV(CSVContents con, int start, int end);
 
     /**
      * Perform the appropriate action (defined by {@link #changeText}) on the
      *    currently-selected region of the document.
      */
     public void actionPerformed(ActionEvent ae) {
-	try {
-	    Application app = Application.getApplication();
-	    CommonWindow win = app.getActiveWindow();
-	    JTextArea area = (JTextArea) ((JScrollPane) win.getContentPane()).getViewport().getView();
-	    // if (firstArea==null) setArea(area);
-	    CSVDocument doc = (CSVDocument) app.getActiveDocument();
-	    CSVContents con = (CSVContents) doc.getContents();
-	    int start = area.getSelectionStart();
-	    int end = area.getSelectionEnd();
-	    changeText(con,start,end);
-	} catch (Exception ex) {
-	    Log.error("Text action error: "+ex.getLocalizedMessage());
-	}
+        try {
+            Application app = Application.getApplication();
+            CommonWindow win = app.getActiveWindow();
+            JTable area = (JTable) ((JScrollPane) win.getContentPane()).getViewport().getView();
+
+            CSVDocument doc = (CSVDocument) app.getActiveDocument();
+            CSVContents con = (CSVContents) doc.getContents();
+
+            int row = area.getSelectedRow();
+            int col = area.getSelectedColumn();
+            changeCSV(con,row,col);
+        } catch (Exception ex) {
+            Log.error("Text action error: "+ex.getLocalizedMessage());
+        }
     }
 
     // debugging

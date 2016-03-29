@@ -24,7 +24,7 @@ public class UpCaseAction extends CSVAction {
      *  capitalized).
      * @param end Index one beyond the last character to change.
      */
-    protected void changeText(CSVContents con, int start, int end) {
+    protected void changeCSV(CSVContents con, int start, int end) {
 	try {
 	    //System.err.println("Up "+start+":"+end);
 	    int len = end-start;

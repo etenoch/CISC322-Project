@@ -8,11 +8,11 @@ package editor;
  * Copyright 2010 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class DownCaseAction extends CSVAction {
+public class MoveLeftAction extends CSVAction {
     /**
      * Constructs an uppercase action -- convert text to upper case.
      */
-    public DownCaseAction() {
+    public MoveLeftAction() {
 	super("Lower Case");
     } // end constructor DownCaseAction
 
@@ -24,18 +24,7 @@ public class DownCaseAction extends CSVAction {
      *  capitalized).
      * @param end Index one beyond the last character to change.
      */
-    protected void changeCSV(CSVContents con, int start, int end) {
-	try {
-	    //System.err.println("Down "+start+":"+end);
-	    int len = end-start;
-	    if (len>0) {
-		String oldText = con.getValueAt(start,len);
-//		con.replace(start,len,oldText.toLowerCase(),null);
-	    } else {
-		// nothing to do
-	    }
-	} catch(Exception e) {
-	    e.printStackTrace();
-	}
+    protected void changeCSV(CSVContents con, int row, int col) {
+		if(col>0) con.moveColumn(col,col-1);
     } // end changeText
 } // end class DownCaseAction

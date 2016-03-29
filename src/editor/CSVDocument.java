@@ -7,6 +7,7 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 
 import javax.swing.*;
 import javax.swing.event.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -41,20 +42,14 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
     public CSVDocument(DocumentType type) {
         super(type);
         jtable = new JTable(contents);
+
         window = new JScrollPane(jtable);
 
     } // end CSVDocument
 
 
-    @Override
-    public void columnAdded(TableColumnModelEvent e) {}
-    @Override
-    public void columnRemoved(TableColumnModelEvent e) {}
-    @Override
-    public void columnMarginChanged(ChangeEvent e) {}
-    @Override
-    public void columnSelectionChanged(ListSelectionEvent e) {}
 
+    // handle changes of column order
     @Override
     public void columnMoved(TableColumnModelEvent e) {
         columnDragging = true;
@@ -66,14 +61,7 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
             contents.moveColumn(e.getFromIndex(),e.getToIndex());
         }
     }
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-    @Override
-    public void mouseExited(MouseEvent e) {}
-    @Override
-    public void mousePressed(MouseEvent e) {}
+
     @Override
     public void mouseReleased(MouseEvent e) {
         columnDragging = false;
@@ -125,6 +113,8 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
         jtable.setModel(contents);
         jtable.getColumnModel().addColumnModelListener(this);
         jtable.getTableHeader().addMouseListener(this);
+        jtable.getTableHeader().setReorderingAllowed(false);
+
 
         setChanged(false);
     } // open
@@ -136,5 +126,26 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
     CSVContents getContents() {
         return contents;
     }
+
+
+    // unused callbacks that need to be defined for TableColumnModelListener,MouseListener
+
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
+    @Override
+    public void mousePressed(MouseEvent e) {}
+    @Override
+    public void columnAdded(TableColumnModelEvent e) {}
+    @Override
+    public void columnRemoved(TableColumnModelEvent e) {}
+    @Override
+    public void columnMarginChanged(ChangeEvent e) {}
+    @Override
+    public void columnSelectionChanged(ListSelectionEvent e) {}
+
 } // end class CSVDocument
 

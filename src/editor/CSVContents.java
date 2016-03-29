@@ -8,9 +8,11 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
 import java.util.List;
+import java.util.Vector;
 
 
 public class CSVContents extends AbstractTableModel {
+
 
     String[] header;
     String[][] data;
@@ -36,7 +38,6 @@ public class CSVContents extends AbstractTableModel {
     }
 
     public void setValueAt(Object value, int row, int col) {
-        System.out.println((String) value);
         data[row][col] = (String) value;
     }
 
@@ -45,27 +46,31 @@ public class CSVContents extends AbstractTableModel {
     }
 
     public void moveColumn(int columnFrom, int columnTo){
-        swap(header, columnFrom, columnTo);
-        for(String[] line : data){
-            swap(line,columnTo,columnFrom);
+//        swap(header, columnFrom, columnTo);
+        for(int i =0; i< getRowCount();i++){
+            swap(data[i],columnFrom,columnTo);
+            fireTableDataChanged();
         }
     }
-
 
     public void open(InputStream in) throws IOException {
         CSVReader reader = new CSVReader(new InputStreamReader(in));
         List<String[]> rawData = reader.readAll();
 
         if (rawData!=null){
-
-            data = new String[rawData.size()-1][];
+            data = new String[rawData.size()][];
             int i = 0;
             for(String[] line : rawData){
-                if (i==0) header = line;
-                else data[i-1]=line;
+                data[i]=line;
                 i++;
             }
 
+            header = new String[data[0].length];
+            char alphabet = 'A';
+            for (int j = 0; j < header.length; j++){
+                header[j]=String.valueOf(alphabet);
+                alphabet++;
+            }
         }
 
     } // end method open
@@ -73,7 +78,7 @@ public class CSVContents extends AbstractTableModel {
     public void save(OutputStream out) throws IOException {
         CSVWriter writer = new CSVWriter(new OutputStreamWriter(out),',', CSVWriter.NO_QUOTE_CHARACTER);
 
-        writer.writeNext(header);
+//        writer.writeNext(header);
         for(String[] line : data){
             writer.writeNext(line);
         }

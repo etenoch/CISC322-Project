@@ -31,7 +31,7 @@ public class CapitalizeAction extends CSVAction {
      *  capitalized).
      * @param end Index one beyond the last character to change.
      */
-    protected void changeText(CSVContents con, int start, int end) {
+    protected void changeCSV(CSVContents con, int start, int end) {
 	if (wordPattern==null)
 	    wordPattern = Pattern.compile(wordPatternText);
 	try {
