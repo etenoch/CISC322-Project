@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 //import java.util.*;
 // Import only those classes from edfmwk that are essential, for documentation purposes
@@ -56,8 +57,6 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
         if (e.getFromIndex() != e.getToIndex()) {
             columnIndexChanged = true;
             // safe to process change event
-
-//            System.out.println("Moved from "+e.getFromIndex() +" to "+e.getToIndex());
             contents.moveColumn(e.getFromIndex(),e.getToIndex());
         }
     }
@@ -79,6 +78,10 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
      *                     closed the stream; isChanged() is unchanged.
      */
     public void save(OutputStream out) throws IOException {
+//        DefaultRowSorter sorter = ((DefaultRowSorter)jtable.getRowSorter());
+//        sorter.setSortKeys(jtable.getRowSorter().getSortKeys());
+//        sorter.sort();
+
         contents.save(out);
         setChanged(false);
     } // save
@@ -113,8 +116,7 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
         jtable.setModel(contents);
         jtable.getColumnModel().addColumnModelListener(this);
         jtable.getTableHeader().addMouseListener(this);
-        jtable.getTableHeader().setReorderingAllowed(false);
-
+        jtable.setAutoCreateRowSorter(true);
 
         setChanged(false);
     } // open

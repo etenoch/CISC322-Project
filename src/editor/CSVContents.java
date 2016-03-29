@@ -7,15 +7,17 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 
 public class CSVContents extends AbstractTableModel {
 
-
     String[] header;
     String[][] data;
+
+    ArrayList<int[]> columnReorders = new ArrayList<>();
 
     public CSVContents(){
 
@@ -46,11 +48,7 @@ public class CSVContents extends AbstractTableModel {
     }
 
     public void moveColumn(int columnFrom, int columnTo){
-//        swap(header, columnFrom, columnTo);
-        for(int i =0; i< getRowCount();i++){
-            swap(data[i],columnFrom,columnTo);
-            fireTableDataChanged();
-        }
+        columnReorders.add(new int[]{columnFrom,columnTo});
     }
 
     public void open(InputStream in) throws IOException {
@@ -78,9 +76,15 @@ public class CSVContents extends AbstractTableModel {
     public void save(OutputStream out) throws IOException {
         CSVWriter writer = new CSVWriter(new OutputStreamWriter(out),',', CSVWriter.NO_QUOTE_CHARACTER);
 
-//        writer.writeNext(header);
+        String[] saveData;
         for(String[] line : data){
-            writer.writeNext(line);
+            saveData = new String[line.length];
+            System.arraycopy(line,0,saveData,0,line.length);
+            for(int[] change:columnReorders){
+                swap(saveData,change[0],change[1]);
+            }
+
+            writer.writeNext(saveData);
         }
         writer.close();
     } // end save
