@@ -3,27 +3,25 @@ package editor;
 // For documentation purposes, import only edfmwk classes actually used.
 
 /**
- * {@link javax.swing.Action} for implementing "Upper Case" functionality.
- *<p>
- * Copyright 2010 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ * {@link javax.swing.Action} for implementing "Move Row Up" functionality.
+ *
+ * Original code provided by Copyright 2010 David Alex Lamb.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public class UpCaseAction extends CSVAction {
     /**
      * Constructs an uppercase action -- convert text to upper case.
      */
     public UpCaseAction() {
-	super("Upper Case");
+		super("Upper Case");
     } // end constructor UpCaseAction
 
     /**
-     * Convert the text in a given range of the document to upper case.
-     * Does nothing if the start and end indices are equal.
-     * @param con Text to change.
-     * @param start Index of the first character to change (the one to be
-     *  capitalized).
-     * @param end Index one beyond the last character to change.
-     */
+     * Convert the text in current cell to upper case.
+	 * @param doc CSV to change.
+	 * @param row Currently selected table row
+	 * @param col Currently selected table column
+	 */
 	protected void changeCSV(CSVDocument doc, int row, int col) {
 
 		String oldText = doc.getValue(row,col);

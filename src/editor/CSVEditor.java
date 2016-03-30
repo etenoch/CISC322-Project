@@ -17,12 +17,11 @@ import ca.queensu.cs.dal.flex.Register;
 import javax.sound.midi.SysexMessage;
 
 /**
- * A simple text editor using the document framework.
- * <p>
- * Copyright 2010 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ * A simple csv editor using the document framework.
+ *
+ * Original code provided by David Alex Lamb 2010.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
-
 public class CSVEditor extends Application {
     private MenuDescriptor menu;
     /* package */ MainPanel mainPanel;

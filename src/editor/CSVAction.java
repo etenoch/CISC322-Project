@@ -13,17 +13,17 @@ import ca.queensu.cs.dal.flex.log.Log;
 /**
  * Parent for {@link javax.swing.Action Actions} for implementing changes to
  * the current text selection. Subclasses need only implement the
- * {@link #changeText} method.
- *<p>
- * Copyright 2010-2011 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ * {@link #changeCSV} method.
+ *
+ * Original code provided by David Alex Lamb 2010.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public abstract class CSVAction extends DefaultAction {
     /**
-     * Constructs a text manipulation action
+     * Constructs a CSV manipulation action
      */
     private CSVAction() {
-        super("Text");
+        super("CSV");
     } // end constructor CSVAction
 
     /**
@@ -40,15 +40,15 @@ public abstract class CSVAction extends DefaultAction {
      * <code>start</code> and <code>end</code> are equal, the operation might
      * do nothing (as in capitalization) or might affect the character before
      * the start or after the end (as in using a delete or backspace key).
-     * @param con Text document to change.
-     * @param start Index of the first character to change.
-     * @param end Index one beyond the last character to change.
+     * @param doc CSV to change.
+     * @param row Currently selected table row
+     * @param col Currently selected table column
      */
-    protected abstract void changeCSV(CSVDocument doc, int start, int end);
+    protected abstract void changeCSV(CSVDocument doc, int row, int col);
 
     /**
-     * Perform the appropriate action (defined by {@link #changeText}) on the
-     *    currently-selected region of the document.
+     * Perform the appropriate action (defined by {@link #changeCSV}) on the
+     *    currently-selected cell (row, col) of the document.
      */
     public void actionPerformed(ActionEvent ae) {
         try {

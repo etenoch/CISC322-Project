@@ -6,29 +6,17 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentException;
 import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 
 import javax.swing.*;
-import javax.swing.event.*;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
-import java.awt.*;
-import java.awt.datatransfer.DataFlavor;
-import java.awt.datatransfer.UnsupportedFlavorException;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
-
-//import java.util.*;
-// Import only those classes from edfmwk that are essential, for documentation purposes
 
 /**
- * Implementation of a text document, which is (indirectly) defined in
- * terms of a Swing {@link javax.swing.Document}.
- * <p>
- * Copyright 2010 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ * Implementation of a csv document
+ *
+ * Original code provided by David Alex Lamb 2010.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public class CSVDocument extends AbstractDocument{
     private static int numRows = 20;
@@ -48,7 +36,6 @@ public class CSVDocument extends AbstractDocument{
     public CSVDocument(DocumentType type) {
         super(type);
         jtable = new JTable(contents);
-
         window = new JScrollPane(jtable);
 
     } // end CSVDocument
@@ -63,7 +50,10 @@ public class CSVDocument extends AbstractDocument{
      *                     closed the stream; isChanged() is unchanged.
      */
     public void save(OutputStream out) throws IOException {
-        System.out.println(jtable.getRowCount());
+
+        // take current data from jtable view
+        // we found this was the easiest way to save the current data
+        // instead of maintaining an updated model
         String[][] dataWithHeader = new String[jtable.getRowCount()+1][];
 
         dataWithHeader[0] = new String[jtable.getColumnCount()];
@@ -85,19 +75,6 @@ public class CSVDocument extends AbstractDocument{
         setChanged(false);
     } // save
 
-    /**
-     * Gets an input stream from which the document contents can be read as a
-     * stream of bytes.  This is required when running in a sandbox, where
-     * {@link javax.jnlp.FileSaveService#saveAsFileDialog} does not provide a
-     * means of supplying an output stream to which to write the internal
-     * representation. Document managers should avoid using this method
-     * wherever possible, preferring {@link #save} instead.
-     *
-     * @throws IOException if such a stream cannot be created.
-     */
-    public InputStream getContentsStream() throws DocumentException {
-        return contents.getContentsStream();
-    } // getContentsStream
 
     /**
      * Reads the entire document, and closes the stream from which it is read.
@@ -116,23 +93,30 @@ public class CSVDocument extends AbstractDocument{
         jtable.setAutoCreateRowSorter(true);
         jtable.setCellSelectionEnabled(true);
 
-
         setChanged(false);
     } // open
 
     /**
-     * Gets the contents of the text document, for those few methods within
+     * Gets the contents of the csv document, for those few methods within
      * this package that need direct access (such as actions).
      */
     CSVContents getContents() {
         return contents;
     }
 
+    /**
+     * Gets the reference to the jtable, for those few methods within
+     * this package that need direct access (such as actions).
+     */
     JTable getJTable() {
         return jtable;
     }
 
-
+    /**
+     * Moves row up (reorder)
+     * Manipulates the table data using the model
+     * These methods used by Actions
+     */
     public void moveRowUp(int rowIndex){
         if(rowIndex>0){
             for(int col=0; col<contents.getColumnCount(); col++) {
@@ -144,6 +128,12 @@ public class CSVDocument extends AbstractDocument{
             contents.fireTableDataChanged();
         }
     }
+
+    /**
+     * Moves row down (reorder)
+     * Manipulates the table data using the model
+     * These methods used by Actions
+     */
     public void moveRowDown(int rowIndex){
         if(rowIndex<contents.getRowCount()-1){
             for(int col=0; col<contents.getColumnCount(); col++) {
@@ -155,6 +145,7 @@ public class CSVDocument extends AbstractDocument{
             contents.fireTableDataChanged();
         }
     }
+
 
     public void setValue(String value, int row, int col){
         contents.setValueAt(value, row, col);

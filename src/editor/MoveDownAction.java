@@ -3,28 +3,26 @@ package editor;
 // For documentation purposes, import only edfmwk classes actually used.
 
 /**
- * {@link javax.swing.Action} for implementing "Lower Case" functionality.
- *<p>
- * Copyright 2010 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ * {@link javax.swing.Action} for implementing "Move Row Down" functionality.
+ *
+ * Original code provided by Copyright 2010 David Alex Lamb.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public class MoveDownAction extends CSVAction {
     /**
-     * Constructs an uppercase action -- convert text to upper case.
+     * Constructs an move down action - Swaps current row down
      */
     public MoveDownAction() {
-	super("▼ Move Row Down");
+	    super("▼ Move Row Down");
     } // end constructor DownCaseAction
 
     /**
-     * Convert the text in a given range of the document to lower case.
-     * Does nothing if the start and end indices are equal.
-     * @param con Text to change.
-     * @param start Index of the first character to change (the one to be
-     *  capitalized).
-     * @param end Index one beyond the last character to change.
+     * Swaps current row down
+     * @param doc CSV to change.
+     * @param row Currently selected table row
+     * @param col Currently selected table column
      */
     protected void changeCSV(CSVDocument doc, int row, int col) {
         doc.moveRowDown(row);
-    } // end changeText
+    } // end changeCSV
 } // end class MoveUpActiopn

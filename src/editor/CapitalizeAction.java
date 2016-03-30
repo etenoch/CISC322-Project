@@ -1,22 +1,21 @@
 package editor;
-// $Id: CapitalizeAction.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
 
 import java.util.regex.*;
-// For documentation purposes, import only edfmwk classes actually used.
 
 /**
  * {@link javax.swing.Action} for implementing "Capitalize" functionality.
- *<p>
- * Copyright 2010 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ *
+ * Original code provided by Copyright 2010 David Alex Lamb.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public class CapitalizeAction extends CSVAction {
     private static final String wordPatternText =
 	// "\\{L}+";
 	"\\w+";
     protected static Pattern wordPattern;
+
     /**
-     * Constructs a text deletion action -- delete selected text.
+     * Constructs a text capitalization action
      */
     public CapitalizeAction() {
 	super("Capitalize");
@@ -25,11 +24,10 @@ public class CapitalizeAction extends CSVAction {
     /**
      * Capitalize the text in a given range of the document -- that is,
      * capitalize each "word" (string of letters or digits). Does nothing if
-     * the start and end indices are equal. 
-     * @param con Text to change.
-     * @param start Index of the first character to change (the one to be
-     *  capitalized).
-     * @param end Index one beyond the last character to change.
+     * the start and end indices are equal.
+     * @param doc CSV to change.
+     * @param row Currently selected table row
+     * @param col Currently selected table column
      */
     protected void changeCSV(CSVDocument doc, int row, int col) {
 	if (wordPattern==null)
@@ -64,5 +62,5 @@ public class CapitalizeAction extends CSVAction {
 	} catch(Exception e) {
 	    e.printStackTrace();
 	}
-    } // end changeText
+    } // end changeCSV
 } // end class CapitalizeAction

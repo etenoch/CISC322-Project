@@ -20,8 +20,9 @@ import ca.queensu.cs.dal.flex.log.Log;
 /**
  * <a href="http://en.wikipedia.org/wiki/Factory_(software_concept)">Factory</a>
  * for representations of text files.
- * <p>
- * Copyright 2010-2011 David Alex Lamb.
+ *
+ * Original code provided by David Alex Lamb 2010.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public class CSVType implements DocumentType {
     /**

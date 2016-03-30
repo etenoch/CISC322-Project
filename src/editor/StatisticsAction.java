@@ -1,33 +1,29 @@
 package editor;
-// $Id: UpCaseAction.java,v 1.0 2012/10/04 13:57:18 dalamb Exp $
-// For documentation purposes, import only edfmwk classes actually used.
 
 import javax.swing.*;
 
 /**
- * {@link javax.swing.Action} for implementing "Upper Case" functionality.
- *<p>
- * Copyright 2010 David Alex Lamb.
- * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
+ * {@link javax.swing.Action} for implementing "Statistics" functionality.
+ *
+ * Original code provided by Copyright 2010 David Alex Lamb.
+ * Modified by Enoch Tam, Vic Setlur, Eric Balboa
  */
 public class StatisticsAction extends CSVAction {
+
     /**
-     * Constructs an uppercase action -- convert text to upper case.
+     * StatisticsAction - shows a popup with statistics about the current column
      */
     public StatisticsAction() {
-	super("∑ Show Column Statistics");
+	    super("∑ Show Column Statistics");
     } // end constructor UpCaseAction
 
     /**
-     * Convert the text in a given range of the document to upper case.
-     * Does nothing if the start and end indices are equal.
-     * @param con Text to change.
-     * @param start Index of the first character to change (the one to be
-     *  capitalized).
-     * @param end Index one beyond the last character to change.
+     * Goes through the data in the current column and computes simple stats
+     * @param doc CSV to change.
+     * @param row Currently selected table row
+     * @param col Currently selected table column
      */
 	protected void changeCSV(CSVDocument doc, int row, int col) {
-
 
         int sum=0, mean=0, nonBlank=0, max=0, min=0;
         boolean first = true;
@@ -60,5 +56,5 @@ public class StatisticsAction extends CSVAction {
 		dialog.setAlwaysOnTop(true);
 		dialog.setVisible(true);
 
-	} // end changeText
-} // end class UpCaseAction
+	} // end changeCSV
+} // end class StatisticsAction

@@ -9,7 +9,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-
+/**
+ * CISC322 Phase 1
+ *
+ * Enoch Tam, Vic Setlur, Eric Balboa
+ */
 public class Phase2 {
 
 

@@ -3,6 +3,11 @@ import com.opencsv.CSVWriter;
 
 import java.io.*;
 
+/**
+ * CISC322 Phase 2
+ *
+ * Enoch Tam, Vic Setlur, Eric Balboa
+ */
 public class Phase1 {
 
     public static void main(String [] args){
