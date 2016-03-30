@@ -148,8 +148,8 @@ public class CSVDocument extends AbstractDocument{
 
 
     public void setValue(String value, int row, int col){
-        contents.setValueAt(value, row, col);
-        contents.fireTableDataChanged();
+        jtable.setValueAt(value, row, col);
+//        contents.fireTableDataChanged();
     }
 
 
