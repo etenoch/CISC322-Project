@@ -8,12 +8,12 @@ package editor;
  * Copyright 2010 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class MoveLeftAction extends CSVAction {
+public class MoveUpAction extends CSVAction {
     /**
      * Constructs an uppercase action -- convert text to upper case.
      */
-    public MoveLeftAction() {
-	super("Lower Case");
+    public MoveUpAction() {
+	super("▲ Move Row Up");
     } // end constructor DownCaseAction
 
     /**
@@ -24,7 +24,7 @@ public class MoveLeftAction extends CSVAction {
      *  capitalized).
      * @param end Index one beyond the last character to change.
      */
-    protected void changeCSV(CSVContents con, int row, int col) {
-		if(col>0) con.moveColumn(col,col-1);
+    protected void changeCSV(CSVDocument doc, int row, int col) {
+        doc.moveRowUp(row);
     } // end changeText
-} // end class DownCaseAction
+} // end class MoveUpActiopn

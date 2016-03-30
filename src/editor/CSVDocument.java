@@ -114,6 +114,7 @@ public class CSVDocument extends AbstractDocument{
         // populate jtable
         jtable.setModel(contents);
         jtable.setAutoCreateRowSorter(true);
+        jtable.setCellSelectionEnabled(true);
 
 
         setChanged(false);
@@ -127,6 +128,43 @@ public class CSVDocument extends AbstractDocument{
         return contents;
     }
 
+    JTable getJTable() {
+        return jtable;
+    }
+
+
+    public void moveRowUp(int rowIndex){
+        if(rowIndex>0){
+            for(int col=0; col<contents.getColumnCount(); col++) {
+                Object o1 = contents.getValueAt(rowIndex, col);
+                Object o2 = contents.getValueAt(rowIndex-1, col);
+                contents.setValueAt(o1, rowIndex-1, col);
+                contents.setValueAt(o2, rowIndex, col);
+            }
+            contents.fireTableDataChanged();
+        }
+    }
+    public void moveRowDown(int rowIndex){
+        if(rowIndex<contents.getRowCount()-1){
+            for(int col=0; col<contents.getColumnCount(); col++) {
+                Object o1 = contents.getValueAt(rowIndex, col);
+                Object o2 = contents.getValueAt(rowIndex+1, col);
+                contents.setValueAt(o1, rowIndex+1, col);
+                contents.setValueAt(o2, rowIndex, col);
+            }
+            contents.fireTableDataChanged();
+        }
+    }
+
+    public void setValue(String value, int row, int col){
+        contents.setValueAt(value, row, col);
+        contents.fireTableDataChanged();
+    }
+
+
+    public String getValue(int row, int col){
+        return jtable.getValueAt(row, col).toString();
+    }
 
 
 } // end class CSVDocument

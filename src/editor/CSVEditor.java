@@ -13,8 +13,6 @@ import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
 import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
 import ca.queensu.cs.dal.edfmwk.Menus;
 import ca.queensu.cs.dal.flex.Register;
-import ca.queensu.cs.dal.txt.MainPanel;
-import ca.queensu.cs.dal.txt.TextType;
 
 import javax.sound.midi.SysexMessage;
 
@@ -29,13 +27,12 @@ public class CSVEditor extends Application {
     private MenuDescriptor menu;
     /* package */ MainPanel mainPanel;
     private static String title = "Simple CSV File Editor";
-    private static String copyright = "2010 David Alex Lamb";
+    private static String copyright = "2010 David Alex Lamb & Students: Enoch Tam, Vic Setlur, Eric Balboa ";
     private static String aboutMsg = title + "\nCopyright " + copyright;
     private static String packageName = "ca.queensu.cs.dal.txt";
     private static String version = "0.1";
     private static Register register;
-    private final String helpURI =
-            "http://cs.queensu.ca/home/dalamb/java/txt/help.html";
+    private final String helpURI = "http://cs.queensu.ca/home/dalamb/java/txt/help.html";
 
     /**
      * Gets the menu descriptor for the main window, which contains only menu

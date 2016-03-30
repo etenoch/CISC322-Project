@@ -31,14 +31,12 @@ public class CapitalizeAction extends CSVAction {
      *  capitalized).
      * @param end Index one beyond the last character to change.
      */
-    protected void changeCSV(CSVContents con, int start, int end) {
+    protected void changeCSV(CSVDocument doc, int row, int col) {
 	if (wordPattern==null)
 	    wordPattern = Pattern.compile(wordPatternText);
 	try {
-	    //System.err.println("Cap "+start+":"+end);
-	    int len = end-start;
-	    if (len>0) {
-		String oldText = con.getValueAt(start,len);
+
+		String oldText = doc.getValue(row, col);
 		StringBuilder newText = new StringBuilder(oldText.length());
 		//System.err.println("old '"+oldText+"'");
 		Matcher matcher = wordPattern.matcher(oldText);
@@ -59,13 +57,10 @@ public class CapitalizeAction extends CSVAction {
 		    lastEnd = oldEnd;
 		} // while
 		tmp = oldText.substring(lastEnd);
-		//System.err.println("tail '"+tmp+"'");
+
 		newText.append(tmp);
-		// replace old selection contents with new
-//		con.replace(start,len,newText.toString(),null);
-	    } else {
-		// nothing to do
-	    }
+        doc.setValue(newText.toString(),row,col);
+
 	} catch(Exception e) {
 	    e.printStackTrace();
 	}

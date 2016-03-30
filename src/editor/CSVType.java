@@ -16,9 +16,6 @@ import ca.queensu.cs.dal.edfmwk.menu.MenuDescriptor;
 import ca.queensu.cs.dal.data.tree.TreeException;
 import ca.queensu.cs.dal.edfmwk.menu.MenuElement;
 import ca.queensu.cs.dal.flex.log.Log;
-import ca.queensu.cs.dal.txt.DeleteAction;
-import ca.queensu.cs.dal.txt.DownCaseAction;
-import ca.queensu.cs.dal.txt.UpCaseAction;
 
 /**
  * <a href="http://en.wikipedia.org/wiki/Factory_(software_concept)">Factory</a>
@@ -168,11 +165,13 @@ public class CSVType implements DocumentType {
         if (menu == null) {
             menu = new MenuDescriptor();
             try {
-//		menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
-//		menu.addElement(new MenuElement("Edit/Delete", new DeleteAction()));
-//		menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
-//        menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
-                menu.addElement(new MenuElement("Edit/Move Col Left", new MoveLeftAction()));
+                menu.addElement(new MenuElement("Edit/Capitalize", new CapitalizeAction()));
+                menu.addElement(new MenuElement("Edit/Clear Cell", new DeleteAction()));
+                menu.addElement(new MenuElement("Edit/Lower Case", new DownCaseAction()));
+                menu.addElement(new MenuElement("Edit/Upper Case", new UpCaseAction()));
+                menu.addElement(new MenuElement("Edit/Move Row Up", new MoveUpAction()));
+                menu.addElement(new MenuElement("Edit/Move Row Down", new MoveDownAction()));
+                menu.addElement(new MenuElement("Edit/Show Column Statistics", new StatisticsAction()));
             } catch (Exception e) {
                 Log.internalError("Menu element error " + e.getLocalizedMessage());
             }

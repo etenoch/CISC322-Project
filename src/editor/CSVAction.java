@@ -44,7 +44,7 @@ public abstract class CSVAction extends DefaultAction {
      * @param start Index of the first character to change.
      * @param end Index one beyond the last character to change.
      */
-    protected abstract void changeCSV(CSVContents con, int start, int end);
+    protected abstract void changeCSV(CSVDocument doc, int start, int end);
 
     /**
      * Perform the appropriate action (defined by {@link #changeText}) on the
@@ -61,7 +61,12 @@ public abstract class CSVAction extends DefaultAction {
 
             int row = area.getSelectedRow();
             int col = area.getSelectedColumn();
-            changeCSV(con,row,col);
+            if(row == -1 || col == -1){
+                JOptionPane optionPane = new JOptionPane("Please select a cell first",JOptionPane.WARNING_MESSAGE);
+                JDialog dialog = optionPane.createDialog("Warning!");
+                dialog.setAlwaysOnTop(true);
+                dialog.setVisible(true);
+            } else changeCSV(doc,row,col);
         } catch (Exception ex) {
             Log.error("Text action error: "+ex.getLocalizedMessage());
         }

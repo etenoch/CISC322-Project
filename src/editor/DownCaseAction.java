@@ -24,18 +24,10 @@ public class DownCaseAction extends CSVAction {
      *  capitalized).
      * @param end Index one beyond the last character to change.
      */
-    protected void changeCSV(CSVContents con, int start, int end) {
-	try {
-	    //System.err.println("Down "+start+":"+end);
-	    int len = end-start;
-	    if (len>0) {
-		String oldText = con.getValueAt(start,len);
-//		con.replace(start,len,oldText.toLowerCase(),null);
-	    } else {
-		// nothing to do
-	    }
-	} catch(Exception e) {
-	    e.printStackTrace();
-	}
+    protected void changeCSV(CSVDocument doc, int row, int col) {
+
+		String oldText = doc.getValue(row,col);
+		doc.setValue(oldText.toLowerCase(),row,col);
+
     } // end changeText
 } // end class DownCaseAction

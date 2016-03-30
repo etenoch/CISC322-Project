@@ -14,7 +14,7 @@ public class DeleteAction extends CSVAction {
      * Constructs a text deletion action -- delete selected text.
      */
     public DeleteAction() {
-	super("Delete");
+	super("Clear Cell");
     } // end constructor DeleteAction
 
     /**
@@ -25,17 +25,7 @@ public class DeleteAction extends CSVAction {
      * @param start Index of the first character to change.
      * @param end Index one beyond the last character to change.
      */
-    protected void changeCSV(CSVContents con, int start, int end) {
-	try {
-	    if (end>start) {
-		// delete selection
-//		con.replace(start,end-start,"",null);
-	    } else {
-		// delete text after caret
-//		con.replace(end,1,"",null);
-	    }
-	} catch (Exception e) {
-	    //error("Deleting nonexistent character.");
-	}
+    protected void changeCSV(CSVDocument doc, int row, int col) {
+		doc.setValue("",row,col);
     } // end changeText
 } // end class DeleteAction
