@@ -59,14 +59,26 @@ public abstract class CSVAction extends DefaultAction {
             CSVDocument doc = (CSVDocument) app.getActiveDocument();
             CSVContents con = (CSVContents) doc.getContents();
 
-            int row = area.getSelectedRow();
-            int col = area.getSelectedColumn();
-            if(row == -1 || col == -1){
+            int selRow = area.getSelectedRowCount();
+            int selCol = area.getSelectedColumnCount();
+
+            if (selRow > 0 && selCol > 0){
+                int selRows[] = area.getSelectedRows();
+                int selCols[] = area.getSelectedColumns();
+
+                for (int row : selRows){
+                    for (int col : selCols){
+                        changeCSV(doc,row,col);
+                    }
+                }
+            }else{
                 JOptionPane optionPane = new JOptionPane("Please select a cell first",JOptionPane.WARNING_MESSAGE);
                 JDialog dialog = optionPane.createDialog("Warning!");
                 dialog.setAlwaysOnTop(true);
                 dialog.setVisible(true);
-            } else changeCSV(doc,row,col);
+            }
+
+
         } catch (Exception ex) {
             Log.error("Text action error: "+ex.getLocalizedMessage());
         }
