@@ -3,11 +3,7 @@ package editor;
 import java.awt.Color;
 import java.awt.BorderLayout;
 import java.io.Writer;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JScrollPane;
-import javax.swing.BorderFactory;
+import javax.swing.*;
 // Import only those classes from edfmwk that are actually used, for
 // documentation purposes.
 import ca.queensu.cs.dal.edfmwk.win.TextAreaWriter;
@@ -40,14 +36,17 @@ public class MainPanel extends JPanel {
      * Constructs the main panel.
      */
     public MainPanel() {
-	super();
-	mainArea = new JTextArea(20,80);
-	mainArea.setBackground(Color.CYAN);
-	JScrollPane sc = new JScrollPane(mainArea);
-        // Add a border to the panel so we can see its boundaries
-        sc.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        add(sc, BorderLayout.CENTER);
-	log = new TextAreaWriter(mainArea);
+        super();
+//        mainArea = new JTextArea(20,80);
+//        mainArea.setBackground(Color.CYAN);
+//        JScrollPane sc = new JScrollPane(mainArea);
+//         Add a border to the panel so we can see its boundaries
+//        sc.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        JLabel openCSVMessage =  new JLabel("Open a CSV File");
+        openCSVMessage.setVerticalTextPosition(JLabel.CENTER);
+        openCSVMessage.setHorizontalTextPosition(JLabel.CENTER);
+        add(openCSVMessage, BorderLayout.CENTER);
+//        log = new TextAreaWriter(mainArea);
     } // end constructor MainPanel
 
 } // end class MainPanel

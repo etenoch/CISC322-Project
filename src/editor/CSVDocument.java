@@ -8,6 +8,11 @@ import ca.queensu.cs.dal.edfmwk.doc.DocumentType;
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
+import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -25,7 +30,7 @@ import java.util.ArrayList;
  * Copyright 2010 David Alex Lamb.
  * See the <a href="../doc-files/copyright.html">copyright notice</a> for details.
  */
-public class CSVDocument extends AbstractDocument implements TableColumnModelListener,MouseListener{
+public class CSVDocument extends AbstractDocument{
     private static int numRows = 20;
     private static int numColumns = 80;
     private CSVContents contents;
@@ -49,26 +54,6 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
     } // end CSVDocument
 
 
-
-    // handle changes of column order
-    @Override
-    public void columnMoved(TableColumnModelEvent e) {
-        columnDragging = true;
-        if (e.getFromIndex() != e.getToIndex()) {
-            columnIndexChanged = true;
-            // safe to process change event
-            contents.moveColumn(e.getFromIndex(),e.getToIndex());
-        }
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        columnDragging = false;
-        columnIndexChanged = false;
-    }
-
-
-
     /**
      * Saves the entire document.  After this operation completes
      * successfully, {@link #isChanged} returns <b>false</b>
@@ -78,11 +63,25 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
      *                     closed the stream; isChanged() is unchanged.
      */
     public void save(OutputStream out) throws IOException {
-//        DefaultRowSorter sorter = ((DefaultRowSorter)jtable.getRowSorter());
-//        sorter.setSortKeys(jtable.getRowSorter().getSortKeys());
-//        sorter.sort();
+        System.out.println(jtable.getRowCount());
+        String[][] dataWithHeader = new String[jtable.getRowCount()+1][];
 
-        contents.save(out);
+        dataWithHeader[0] = new String[jtable.getColumnCount()];
+        for (int col = 0; col < jtable.getColumnCount(); col++) {
+            TableColumnModel tcm = jtable.getColumnModel();
+            TableColumn tc = tcm.getColumn(col);
+            String val = tc.getHeaderValue().toString();
+            dataWithHeader[0][col] = val;
+        }
+
+        for (int row = 1; row <= jtable.getRowCount(); row++) {
+            dataWithHeader[row] = new String[jtable.getColumnCount()];
+            for (int col = 0; col < jtable.getColumnCount(); col++) {
+                dataWithHeader[row][col] = jtable.getValueAt(row-1, col).toString();
+            }
+        }
+
+        contents.save(out,dataWithHeader);
         setChanged(false);
     } // save
 
@@ -114,9 +113,8 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
 
         // populate jtable
         jtable.setModel(contents);
-        jtable.getColumnModel().addColumnModelListener(this);
-        jtable.getTableHeader().addMouseListener(this);
         jtable.setAutoCreateRowSorter(true);
+
 
         setChanged(false);
     } // open
@@ -130,24 +128,6 @@ public class CSVDocument extends AbstractDocument implements TableColumnModelLis
     }
 
 
-    // unused callbacks that need to be defined for TableColumnModelListener,MouseListener
-
-    @Override
-    public void mouseEntered(MouseEvent e) {}
-    @Override
-    public void mouseClicked(MouseEvent e) {}
-    @Override
-    public void mouseExited(MouseEvent e) {}
-    @Override
-    public void mousePressed(MouseEvent e) {}
-    @Override
-    public void columnAdded(TableColumnModelEvent e) {}
-    @Override
-    public void columnRemoved(TableColumnModelEvent e) {}
-    @Override
-    public void columnMarginChanged(ChangeEvent e) {}
-    @Override
-    public void columnSelectionChanged(ListSelectionEvent e) {}
 
 } // end class CSVDocument
 

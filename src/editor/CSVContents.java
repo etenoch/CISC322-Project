@@ -14,8 +14,8 @@ import java.util.Vector;
 
 public class CSVContents extends AbstractTableModel {
 
-    String[] header;
-    String[][] data;
+    private String[] header;
+    private String[][] data;
 
     ArrayList<int[]> columnReorders = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class CSVContents extends AbstractTableModel {
     }
 
     public void moveColumn(int columnFrom, int columnTo){
-        columnReorders.add(new int[]{columnFrom,columnTo});
+//        columnReorders.add(new int[]{columnFrom,columnTo});
     }
 
     public void open(InputStream in) throws IOException {
@@ -56,35 +56,22 @@ public class CSVContents extends AbstractTableModel {
         List<String[]> rawData = reader.readAll();
 
         if (rawData!=null){
-            data = new String[rawData.size()][];
+            data = new String[rawData.size()-1][];
             int i = 0;
             for(String[] line : rawData){
-                data[i]=line;
+                if (i==0) header = line;
+                else data[i-1]=line;
                 i++;
-            }
-
-            header = new String[data[0].length];
-            char alphabet = 'A';
-            for (int j = 0; j < header.length; j++){
-                header[j]=String.valueOf(alphabet);
-                alphabet++;
             }
         }
 
     } // end method open
 
-    public void save(OutputStream out) throws IOException {
+    public void save(OutputStream out, String[][] saveData) throws IOException {
         CSVWriter writer = new CSVWriter(new OutputStreamWriter(out),',', CSVWriter.NO_QUOTE_CHARACTER);
 
-        String[] saveData;
-        for(String[] line : data){
-            saveData = new String[line.length];
-            System.arraycopy(line,0,saveData,0,line.length);
-            for(int[] change:columnReorders){
-                swap(saveData,change[0],change[1]);
-            }
-
-            writer.writeNext(saveData);
+        for(String[] line : saveData){
+            writer.writeNext(line);
         }
         writer.close();
     } // end save
@@ -93,6 +80,11 @@ public class CSVContents extends AbstractTableModel {
     {
         return null;
     } // end getContentStream
+
+
+    public void setContent(String[][] data){
+        this.data = data;
+    }
 
 
     // helper function
