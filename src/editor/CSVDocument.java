@@ -119,13 +119,13 @@ public class CSVDocument extends AbstractDocument{
      */
     public void moveRowUp(int rowIndex){
         if(rowIndex>0){
-            for(int col=0; col<contents.getColumnCount(); col++) {
-                Object o1 = contents.getValueAt(rowIndex, col);
-                Object o2 = contents.getValueAt(rowIndex-1, col);
-                contents.setValueAt(o1, rowIndex-1, col);
-                contents.setValueAt(o2, rowIndex, col);
+            for(int col=0; col<jtable.getColumnCount(); col++) {
+                Object o1 = jtable.getValueAt(rowIndex, col);
+                Object o2 = jtable.getValueAt(rowIndex-1, col);
+                jtable.setValueAt(o1, rowIndex-1, col);
+                jtable.setValueAt(o2, rowIndex, col);
             }
-            contents.fireTableDataChanged();
+//            contents.fireTableDataChanged();
         }
     }
 
@@ -135,14 +135,14 @@ public class CSVDocument extends AbstractDocument{
      * These methods used by Actions
      */
     public void moveRowDown(int rowIndex){
-        if(rowIndex<contents.getRowCount()-1){
-            for(int col=0; col<contents.getColumnCount(); col++) {
-                Object o1 = contents.getValueAt(rowIndex, col);
-                Object o2 = contents.getValueAt(rowIndex+1, col);
-                contents.setValueAt(o1, rowIndex+1, col);
-                contents.setValueAt(o2, rowIndex, col);
+        if(rowIndex<jtable.getRowCount()-1){
+            for(int col=0; col<jtable.getColumnCount(); col++) {
+                Object o1 = jtable.getValueAt(rowIndex, col);
+                Object o2 = jtable.getValueAt(rowIndex+1, col);
+                jtable.setValueAt(o1, rowIndex+1, col);
+                jtable.setValueAt(o2, rowIndex, col);
             }
-            contents.fireTableDataChanged();
+//            contents.fireTableDataChanged();
         }
     }
 
